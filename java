@@ -10,3 +10,4 @@ int rowsUpdated = statement.executeUpdate();
 if (rowsUpdated > 0) {
     System.out.println("An existing user was updated successfully!");
 }
+
