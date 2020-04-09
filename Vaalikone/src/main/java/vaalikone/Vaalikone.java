@@ -40,7 +40,7 @@ import persist.Vastaukset;
 public class Vaalikone extends HttpServlet {
 
 	
-    //hae java logger-instanssi
+    //get the java logger instance
     private final static Logger logger = Logger.getLogger(Loki.class.getName());
 
     /**
@@ -57,16 +57,16 @@ public class Vaalikone extends HttpServlet {
 
         int kysymys_id;
 
-        // hae http-sessio ja luo uusi jos vanhaa ei ole vielä olemassa
+        // retrieve the http session and create a new one if the old one does not yet exist
         HttpSession session = request.getSession(true);
 
-        //hae käyttäjä-olio http-sessiosta
-        Kayttaja usr = (Kayttaja) session.getAttribute("usrobj");
+        //retrieve the user object from the http session
+        User usr = (User) session.getAttribute("usrobj");	
 
-        //jos käyttäjä-oliota ei löydy sessiosta, luodaan sinne sellainen
+        //if the user object is not found in the session, creating one
         if (usr == null) {
-            usr = new Kayttaja();
-            logger.log(Level.FINE, "Luotu uusi k�ytt�j�olio");
+            usr = new User();
+            logger.log(Level.FINE, "New user object created");
             session.setAttribute("usrobj", usr);
         }
         EntityManagerFactory emf=null;
@@ -83,140 +83,141 @@ public class Vaalikone extends HttpServlet {
           	return;
         }
         
-        //hae url-parametri func joka määrittää toiminnon mitä halutaan tehdä.
-        //func=haeEhdokas: hae tietyn ehdokkaan tiedot ja vertaile niitä käyttäjän vastauksiin
-        //Jos ei määritelty, esitetään kysymyksiä.
+        //get the url parameter func which specifies the function you want to do.
+        //func=haeEhdokas: retrieve information for a specific candidate and compare it to the user's answers
+        //If not specified, questions will be asked.
         String strFunc = request.getParameter("func");
 
-        if (strFunc == null) {
+        if (strFunc == null) {	//for the questions part
 
-            //hae parametrinä tuotu edellisen kysymyksen nro
+            //retrieve the number of the previous question imported as a parameter
             String strKysymys_id = request.getParameter("q");
 
-            //hae parametrina tuotu edellisen kysymyksen vastaus
+            //retrieve the answer to the previous question imported by the parameter
             String strVastaus = request.getParameter("vastaus");
 
-            // Jos kysymyksen numero (kysId) on asetettu, haetaan tuo kysymys
-            // muuten haetaan kysnro 1
+            // If a question number (kysId) is set, that question is retrieved
+            // otherwise, claim no. 1
             if (strKysymys_id == null) {
                 kysymys_id = 1;
             } else {
                 kysymys_id = parseInt(strKysymys_id);
-                //jos vastaus on asetettu, tallenna se session käyttäjä-olioon
+                //if the answer is set, save it to the session user object
                 if (strVastaus != null) {
                     usr.addVastaus(kysymys_id, parseInt(strVastaus));
                 }
 
-                //määritä seuraavaksi haettava kysymys
+                //determine the question to be searched next
                 kysymys_id++;
             }
 
-            //jos kysymyksiä on vielä jäljellä, hae seuraava
+            //if there are still questions left, get the next one
             if (kysymys_id < 20) {
                 try {
-                    //Hae haluttu kysymys tietokannasta
+                    //Search the database for the desired question
                     Query q = em.createQuery(
                             "SELECT k FROM Kysymykset k WHERE k.kysymysId=?1");
                     q.setParameter(1, kysymys_id);
-                    //Lue haluttu kysymys listaan
+                    //Read the desired question in the list
                     List<Kysymykset> kysymysList = q.getResultList();
                     request.setAttribute("kysymykset", kysymysList);
-                    request.getRequestDispatcher("/vastaus.jsp")
+                    request.getRequestDispatcher("/vastaus.jsp")		//for the questions
                             .forward(request, response);
 
                 } finally {
-                    // Sulje tietokantayhteys
+                    // Close the database connection
                     if (em.getTransaction().isActive()) {
                         em.getTransaction().rollback();
                     }
                     em.close();
                 }
 
-                //jos kysymykset loppuvat, lasketaan tulos!
+                //if the questions run out, the result is calculated!
             } else {
 
-                //Tyhjennetään piste-array jotta pisteet eivät tuplaannu mahdollisen refreshin tapahtuessa
+                //Clear the point array so that the points do not double when a possible refresher occurs
                 for (int i = 0; i < 20; i++) {
-                    usr.pisteet.set(i, new Tuple<>(0, 0));
+                    usr.scores.set(i, new Tuple<>(0, 0));
                 }
 
-                //Hae lista ehdokkaista
+                //Get a list of candidates
                 Query qE = em.createQuery(
                         "SELECT e.ehdokasId FROM Ehdokkaat e"
                 );
                 List<Integer> ehdokasList = qE.getResultList();
 
-                //iteroi ehdokaslista läpi
+                //iterate through the candidate list
                 for (int i = 1; i < ehdokasList.size(); i++) {
 
-                    //Hae lista ehdokkaiden vastauksista
+                    //Get a list of candidates' answers
                     Query qV = em.createQuery(
                             "SELECT v FROM Vastaukset v WHERE v.vastauksetPK.ehdokasId=?1");
                     qV.setParameter(1, i);
                     List<Vastaukset> vastausList = qV.getResultList();
 
-                    //iteroi vastauslista läpi
+                    //iterate through the answer list
                     for (Vastaukset eVastaus : vastausList) {
-                        int pisteet;
+						int scores;
 
-                        //hae käyttäjän ehdokaskohtaiset pisteet
-                        pisteet = usr.getPisteet(i);
+                        //search for User Candidate Score
+                        scores = usr.getScore(i);
 
-                        //laske oman ja ehdokkaan vastauksen perusteella pisteet 
-                        pisteet += laskePisteet(usr.getVastaus(i), eVastaus.getVastaus());
+                        //calculate your score based on your and the candidate's answer
+                        scores += laskePisteet(usr.getVastaus(i), eVastaus.getVastaus());
+                        					//user's answer     ;   candidate's answer
 
-                        logger.log(Level.INFO, "eID: {0} / k: {1} / kV: {2} / eV: {3} / p: {4}", new Object[]{i, eVastaus.getVastauksetPK().getKysymysId(), usr.getVastaus(i), eVastaus.getVastaus(), pisteet});
-                        usr.addPisteet(i, pisteet);
+                        logger.log(Level.INFO, "eID: {0} / k: {1} / kV: {2} / eV: {3} / p: {4}", new Object[]{i, eVastaus.getVastauksetPK().getKysymysId(), usr.getVastaus(i), eVastaus.getVastaus(), scores});
+                        usr.addPisteet(i, scores);
                     }
 
                 }
 
-                //siirrytään hakemaan paras ehdokas
-                strFunc = "haeEhdokas";
+                //let�s move on to finding the best candidate
+                strFunc = "haeEhdokas"; //apply candidate
             }
 
         }
 
-        //jos func-arvo on haeEhdokas, haetaan haluttu henkilö käyttäjälle sopivimmista ehdokkaista
+        //if the strFunc value is "haeEhdokas", the desired person is searched for the most suitable candidates for the user
         if ("haeEhdokas".equals(strFunc)) {
-            //luetaan url-parametristä "top-listan järjestysnumero". Jos ei määritelty, haetaan PARAS vaihtoehto.
+            //read from the url parameter "top list sequence number". If not specified, the BEST option is sought.
             String strJarjestysnumero = request.getParameter("numero");
             Integer jarjestysnumero = 0;
             if (strJarjestysnumero != null) {
                 jarjestysnumero = Integer.parseInt(strJarjestysnumero);
             }
 
-            //Lue käyttäjälle sopivimmat ehdokkaat väliaikaiseen Tuple-listaan.
-            List<Tuple<Integer, Integer>> tpl = usr.haeParhaatEhdokkaat();
+            //Read the most suitable candidates for the user on the interim Tuple list.
+            List<Tuple<Integer, Integer>> tpl = usr.haeParhaatEhdokkaat(); //search for Best Candidates
 
-            //hae määritetyn ehdokkaan tiedot
+            //retrieve the details of a specific candidate
             Query q = em.createQuery(
                     "SELECT e FROM Ehdokkaat e WHERE e.ehdokasId=?1");
             q.setParameter(1, tpl.get(jarjestysnumero).ehdokasId);
             List<Ehdokkaat> parasEhdokas = q.getResultList();
 
-            //hae ko. ehdokkaan vastaukset
+            //hae ko. ehdokkaan vastaukset	;retrieve the answer of a specific candidate
             q = em.createQuery(
                     "SELECT v FROM Vastaukset v WHERE v.vastauksetPK.ehdokasId=?1");
             q.setParameter(1, tpl.get(jarjestysnumero).ehdokasId);
             List<Vastaukset> parhaanEhdokkaanVastaukset = q.getResultList();
 
-            //hae kaikki kysymykset
+            //get all the questions
             q = em.createQuery(
                     "SELECT k FROM Kysymykset k");
             List<Kysymykset> kaikkiKysymykset = q.getResultList();
             
-            //ohjaa tiedot tulosten esityssivulle
+            //redirects the data to the results presentation page
             request.setAttribute("kaikkiKysymykset", kaikkiKysymykset);
-            request.setAttribute("kayttajanVastaukset", usr.getVastausLista());
+            request.setAttribute("kayttajanVastaukset", usr.getAnswerList());
             request.setAttribute("parhaanEhdokkaanVastaukset", parhaanEhdokkaanVastaukset);
             request.setAttribute("parasEhdokas", parasEhdokas);
             request.setAttribute("pisteet", tpl.get(jarjestysnumero).pisteet);
             request.setAttribute("jarjestysnumero", jarjestysnumero);
-            request.getRequestDispatcher("/tulokset.jsp")
+            request.getRequestDispatcher("/tulokset.jsp")			//for the scores
                     .forward(request, response);
 
-            // Sulje tietokantayhteys
+            // Close the database connection
             if (em.getTransaction().isActive()) {
                 em.getTransaction().rollback();
             }
@@ -225,7 +226,7 @@ public class Vaalikone extends HttpServlet {
         }
 
     }
-
+    //calculate score
     private Integer laskePisteet(Integer kVastaus, Integer eVastaus) {
         int pisteet = 0;
         if (kVastaus - eVastaus == 0) {

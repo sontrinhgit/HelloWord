@@ -13,29 +13,29 @@ import java.io.Serializable;
  * @param <E>
  * @param <F>
  */
-public class Tuple<E,F> implements Serializable{
+public class Tuple<E, F> implements Serializable {
 
-    /**
-     *
-     */
-    public E ehdokasId;
+	/**
+	 *
+	 */
+	public E ehdokasId;
 
-    /**
-     *
-     */
-    public F pisteet;
+	/**
+	 *
+	 */
+	public F pisteet;
 
-    /**
-     *
-     * @param e
-     * @param f
-     */
+	/**
+	 *
+	 * @param e
+	 * @param f
+	 */
 //    public Tuple() {
 //    	//Do nothing....
 //    }
-    public Tuple(E e, F f) {
-        this.ehdokasId=e;
-        this.pisteet=f;
-    }
-    
+	public Tuple(E e, F f) {
+		this.ehdokasId = e;
+		this.pisteet = f;
+	}
+
 }

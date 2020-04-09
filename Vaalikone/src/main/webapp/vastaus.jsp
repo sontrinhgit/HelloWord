@@ -18,13 +18,16 @@
 <body>
 
 <div id="container">
-<img id="headerimg" src="images/Logo.png" width="500" height="144" alt=""/>
+<img id="headerimg" src="Logo.png" width="500" height="144" alt=""/>
 
 
 
  <%
             @SuppressWarnings("unchecked") 
-            List<Kysymykset> kysymykset = (List<Kysymykset>)request.getAttribute("kysymykset");
+ 			//create a list of questions
+            List<Kysymykset> kysymykset = (List<Kysymykset>) request.getAttribute("kysymykset");
+ 
+ 			//loop through these questions
             for (Kysymykset kysymys : kysymykset) { %>
             <div class="kysymys">
                 <%= kysymys.getKysymysId() %> / 19 <br>
