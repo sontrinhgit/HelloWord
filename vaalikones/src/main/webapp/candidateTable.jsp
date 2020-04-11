@@ -6,37 +6,50 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import="java.util.*,vaalikone.Vaalikone,persist.*"%>
+<%@page	import=javax.persistence.EntityManager,javax.persistence.EntityManagerFactory,javax.persistence.Persistence,javax.persistence.Query; %>
 <!doctype html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Diginide Vaalikone 2.0</title>
-
+<title>Diginide vaalikone</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link href="style.css" rel="stylesheet" type="text/css">
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 </head>
 
 <body>
 
-<div id="container">
-<img id="headerimg" src="Logo.png" width="500" height="144" alt=""/>
+	<%
+		EntityManagerFactory emf = null;
+		EntityManager em = null;
+		try {
+			emf = Persistence.createEntityManagerFactory("vaalikones");
+			em = emf.createEntityManager();
+		} catch (Exception e) {
+			response.getWriter().println("EMF+EM EI Onnistu");
+
+			e.printStackTrace(response.getWriter());
+
+			return;
+		}
+		Query qE = em.createQuery("SELECT e.ehdokasId FROM Ehdokkaat e");
+		List<Integer> CandidateList = qE.getResultList();
+	%>
+		
+				
+				
+		
+		</tbody>
+	</table>
 
 
 
- <%
-            @SuppressWarnings("unchecked") 
-            List<Kysymykset> kysymykset = (List<Kysymykset>)request.getAttribute("kysymykset");
-            for (Kysymykset kysymys : kysymykset) { %>
-        
-                <%= kysymys.getKysymysId() %> <br>
-                <%= kysymys.getKysymys() %>
-                <%
-            } 
-        %>
 
-
-
-
-</div>
 
 </body>
 </html>

@@ -31,8 +31,8 @@ javax.persistence.Query" %>
                 <br>           
        
                 
-                   <a class="btn btn-primary" href="#" role="button">Retrieve the candidates</a>
-                   <a class="btn btn-primary" href="candidateTable.jsp" role="button">Edit questions</a>
+                   <a class="btn btn-primary" href="candidateTable.jsp" role="button">Retrieve the candidates</a>
+                   <a class="btn btn-primary" href="#" role="button">Edit questions</a>
            
            
         </div>
