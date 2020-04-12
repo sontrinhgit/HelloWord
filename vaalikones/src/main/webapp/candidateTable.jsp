@@ -1,13 +1,9 @@
-<%-- 
-    Document   : vastaus
-    Created on : 09-Apr-2015, 12:50:47
-    Author     : Jonne
---%>
-
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@page import="java.util.*,vaalikone.Vaalikone,persist.*"%>
-<%@page	import=javax.persistence.EntityManager,javax.persistence.EntityManagerFactory,javax.persistence.Persistence,javax.persistence.Query; %>
-<!doctype html>
+<%@page import="java.util.List"%>
+<%@page import="persist.Vastaukset"%>
+<%@page import="java.util.ArrayList"%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+	pageEncoding="ISO-8859-1"%>
+<!DOCTYPE html>
 <html>
 <head>
 <title>Diginide vaalikone</title>
@@ -20,36 +16,55 @@
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
 </head>
-
 <body>
-
 	<%
-		EntityManagerFactory emf = null;
-		EntityManager em = null;
-		try {
-			emf = Persistence.createEntityManagerFactory("vaalikones");
-			em = emf.createEntityManager();
-		} catch (Exception e) {
-			response.getWriter().println("EMF+EM EI Onnistu");
+		String firstname = (String) request.getAttribute("fname");
+		String lastname = (String) request.getAttribute("lname");
+		String party = (String) request.getAttribute("party");
+		Integer age = (Integer) request.getAttribute("age");
+		String municipality = (String) request.getAttribute("municipality");
 
-			e.printStackTrace(response.getWriter());
-
-			return;
-		}
-		Query qE = em.createQuery("SELECT e.ehdokasId FROM Ehdokkaat e");
-		List<Integer> CandidateList = qE.getResultList();
+		ArrayList<Integer> questionID = (ArrayList<Integer>) request.getAttribute("questionID");
+		ArrayList<String> question = (ArrayList<String>) request.getAttribute("question");
+		List<Vastaukset> answer = (List<Vastaukset>) request.getAttribute("candidateAnswer");
 	%>
-		
-				
-				
-		
+
+	<h1>Hello candidate</h1>
+	<h3>Your Information:</h3>
+	<ul>
+		<li><b>Name:</b> <%=firstname + " " + lastname%></li>
+		<li><b>Party:</b> <%=party%></li>
+		<li><b>Registered official municipality:</b> <%=municipality%></li>
+		<li><b>Age:</b> <%=age%></li>
+	</ul>
+	<h3>Your Answers:</h3>
+	<table class="table">
+		<thead class="thead-dark">
+			<tr>
+				<th scope="col">Questions_ID</th>
+				<th scope="col">Questions</th>
+				<th scope="col">Your Answers</th>
+			</tr>
+		</thead>
+		<tbody>
+
+			<%
+				for (int i = 0; i < 19; i++) {
+			%>
+			<tr>
+				<td><%=questionID.get(i)%></td>
+				<td><%=question.get(i)%></td>
+				<td><%=answer.get(i).getVastaus()%></td>
+				<td><a href="#">Edit</a></td>
+			</tr>
+			<%
+				}
+			%>
+
 		</tbody>
 	</table>
-
-
-
-
 
 </body>
 </html>
