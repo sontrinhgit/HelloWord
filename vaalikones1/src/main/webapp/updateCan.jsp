@@ -23,7 +23,7 @@ ResultSet resultSet = null;
 try{
 connection = DriverManager.getConnection(connectionUrl+database, userid, password);
 statement=connection.createStatement();
-String sql ="select ehdokas_id,sukunimi,etunimi,puolue,kotipaikkakunta,ika from ehdokkaat where ehdokas_id="+id;
+String sql ="select ehdokas_id,sukunimi,etunimi,puolue,kotipaikkakunta,ika,ammatti from ehdokkaat where ehdokas_id="+id;
 resultSet = statement.executeQuery(sql);
 while(resultSet.next()){
 %>
@@ -51,6 +51,9 @@ while(resultSet.next()){
 <br>
 <h4>Ika:</h4><br>
 <input type="text" name="ika" value="<%=resultSet.getString("ika") %>">
+<br><br>
+<h4>Ammatti:</h4><br>
+<input type="text" name="ammatti" value="<%=resultSet.getString("ammatti") %>">
 <br><br>
 <input type="Submit" value="Submit">
 </form>

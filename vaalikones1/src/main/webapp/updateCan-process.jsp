@@ -18,6 +18,7 @@ String Sukunimi=request.getParameter("sukunimi");
 String puolue=request.getParameter("puolue");
 String koti=request.getParameter("koti");
 String ika=request.getParameter("ika");
+String ama=request.getParameter("ammatti");
 if(id != null)
 {
 Connection con = null;
@@ -27,7 +28,7 @@ try
 {
 Class.forName(driverName);
 con = DriverManager.getConnection(url,user,psw);
-String sql="Update ehdokkaat set ehdokas_id=?,etunimi=?,sukunimi=?,puolue=?,kotipaikkakunta=?,ika=? where ehdokas_id="+id;
+String sql="Update ehdokkaat set ehdokas_id=?,etunimi=?,sukunimi=?,puolue=?,kotipaikkakunta=?,ika=?,ammatti=? where ehdokas_id="+id;
 ps = con.prepareStatement(sql);
 ps.setString(1,id);
 ps.setString(2, Etunimi);
@@ -35,6 +36,7 @@ ps.setString(3, Sukunimi);
 ps.setString(4, puolue);
 ps.setString(5,koti);
 ps.setString(6,ika);
+ps.setString(7,ama);
 int i = ps.executeUpdate();
 if(i > 0)
 {

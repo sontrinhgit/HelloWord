@@ -10,11 +10,12 @@
 <body>
 <div id="container">
 <h1> Welcome to the admin page</h1>
+<form action="logout" method="post">
+<input type="submit" value="Log Out" >
+</form>
+<hr>
 <form action="rtest.jsp"">
 <input type="submit" value ="All the candidate" id="submitnappi">
-</form>
-
-<form>
 
 </form>
 <form>

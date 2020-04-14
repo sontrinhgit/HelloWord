@@ -28,7 +28,24 @@
     <url-pattern>/Login</url-pattern>
   </servlet-mapping>
 
-
+ <servlet>
+    <servlet-name>CandidateSv</servlet-name>
+    <servlet-class>vaalikone.CandidateSv</servlet-class>
+  </servlet>
+  
+  <servlet-mapping>
+    <servlet-name>CandidateSv</servlet-name>
+    <url-pattern>/CandidateSv</url-pattern>
+  </servlet-mapping>
+ <servlet>
+    <servlet-name>logout</servlet-name>
+    <servlet-class>vaalikone.logout</servlet-class>
+  </servlet>
+  
+  <servlet-mapping>
+    <servlet-name>logout</servlet-name>
+    <url-pattern>/logout</url-pattern>
+  </servlet-mapping>
 
 
   <session-config>

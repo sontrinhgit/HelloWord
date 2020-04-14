@@ -22,7 +22,9 @@ Connection connection = null;
 Statement statement = null;
 ResultSet resultSet = null;
 %>
+
 <h2 align="center"><font><strong>All the candidates</strong></font></h2>
+<a href="welcome.jsp">Back</a>
 <table  border="1" class="tb">
 <tr>
 
@@ -57,7 +59,7 @@ while(resultSet.next()){
 <td><%=resultSet.getString("kotipaikkakunta") %></td>
 <td><%=resultSet.getString("ika") %></td>
 <td><%=resultSet.getString("ammatti") %></td>
-<td><a href="update.jsp?ehdokas_id=<%=resultSet.getString("ehdokas_id")%>">Update</a></td>
+<td><a href="updateCan.jsp?ehdokas_id=<%=resultSet.getString("ehdokas_id")%>">Update</a></td>
 <td><a href="delete.jsp?ehdokas_id=<%=resultSet.getString("ehdokas_id")%>">Delete</a></td>
 
 </tr>
@@ -70,4 +72,5 @@ e.printStackTrace();
 }
 %>
 </table>
+
 </div>
