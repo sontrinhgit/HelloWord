@@ -37,6 +37,7 @@ public class Vastaukset implements Serializable {
      */
     @EmbeddedId
     protected VastauksetPK vastauksetPK;
+    
     @Column(name = "VASTAUS")
     private Integer vastaus;
     @Size(max = 50)

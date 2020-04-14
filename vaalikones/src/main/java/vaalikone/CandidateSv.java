@@ -38,7 +38,7 @@ public class CandidateSv extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
 	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
 		// TODO Auto-generated method stub
@@ -70,11 +70,7 @@ public class CandidateSv extends HttpServlet {
 
 		String fname = request.getParameter("firstname");
 		String lname = request.getParameter("lastname");
-
 		// Get a list of candidate
-//		Query qC = em.createQuery("SELECT e.ehdokasId FROM ehdokkaat e");
-//		List<Integer> candidateList = qC.getResultList();
-
 		Query qE = em.createQuery("SELECT e.ehdokasId FROM Ehdokkaat e");
 		List<Integer> ehdokasList = qE.getResultList();
 
@@ -89,6 +85,8 @@ public class CandidateSv extends HttpServlet {
 				request.setAttribute("party", candidate.getPuolue());
 				request.setAttribute("age", candidate.getIka());
 				request.setAttribute("municipality", candidate.getKotipaikkakunta());
+				
+				session.setAttribute("candidateId", candidate.getEhdokasId());
 
 				// retrieve questions list
 				Query q = em.createQuery("SELECT k FROM Kysymykset k");
@@ -106,15 +104,19 @@ public class CandidateSv extends HttpServlet {
 				request.setAttribute("question", question);
 
 				// retrieve the answer list for specific candidate
-				Query qA = em.createQuery("SELECT v FROM Vastaukset v WHERE v.vastauksetPK.ehdokasId="+candidate.getEhdokasId());
+
+				Query qA = em.createQuery(
+						"SELECT v FROM Vastaukset v WHERE v.vastauksetPK.ehdokasId=" + candidate.getEhdokasId());
 				List<Vastaukset> answer = qA.getResultList();
-				
+
 				request.setAttribute("candidateAnswer", answer);
 
 				RequestDispatcher rqd = request.getRequestDispatcher("candidateTable.jsp");
 				rqd.forward(request, response);
 
 			}
+
 		}
+
 	}
 }
