@@ -4,16 +4,15 @@
  * and open the template in the editor.
  */
 package vaalikone;
-
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.DriverManager;
 import static java.lang.Integer.parseInt;
-
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
 import javax.annotation.Resource;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -25,9 +24,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
 import com.google.appengine.api.utils.SystemProperty;
-
 import persist.Ehdokkaat;
 import persist.Kysymykset;
 import persist.Vastaukset;

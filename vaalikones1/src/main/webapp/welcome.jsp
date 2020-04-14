@@ -13,9 +13,7 @@
 <form action="rtest.jsp"">
 <input type="submit" value ="All the candidate" id="submitnappi">
 </form>
-<form action="add.jsp">
-<input type="submit" value="Add more Candidate" name="add" id="submitnappi">
-</form>
+
 <form>
 
 </form>

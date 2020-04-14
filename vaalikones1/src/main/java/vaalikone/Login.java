@@ -14,7 +14,10 @@ import javax.servlet.http.HttpSession;
 @WebServlet("/Login")
 public class Login extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
+	String sql ="select * from account where username=? and password=?";
+	String url ="jdbc:mysql://localhost:3306/vaalikone";
+	String username="root";
+	String password="0408153804";
     /**
      * @see HttpServlet#HttpServlet()
      */
