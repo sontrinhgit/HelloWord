@@ -5,8 +5,7 @@
 	    <class>persist.Kysymykset</class>
 	    <class>persist.Vastaukset</class>
 	    <class>persist.VastauksetPK</class>
-	    <class>persist.Admin</class>
-
+	    
 	    <properties>
 			<property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
 			<property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/vaalikone"/>
