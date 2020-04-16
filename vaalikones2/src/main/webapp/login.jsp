@@ -12,9 +12,9 @@
 <form action="Login" method="post">
 <h1>Welcome to the log in page</h1>
 <br>
-	<h4>Enter username:</h4> <input type ="text" name ="uname" id="uname" required>
+	<h5>Enter username:</h5> <input type ="text" name ="uname" id="uname" required>
 	<br>
-	<h4>Enter password: </h4> <input type="password" name="pass" id="pass" required>
+	<h5>Enter password: </h5> <input type="password" name="pass" id="pass" required>
 	<br>
 	<input type="submit" value="log in" id="submitnappi">
 </div>

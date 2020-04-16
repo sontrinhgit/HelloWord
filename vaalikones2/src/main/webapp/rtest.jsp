@@ -23,7 +23,7 @@ Statement statement = null;
 ResultSet resultSet = null;
 %>
 
-<h2 align="center"><font><strong>All the candidates</strong></font></h2>
+<h1 align="center"><font><strong>All the candidates</strong></font></h1>
 <a href="welcome.jsp">Back</a>
 <table  border="1" class="tb">
 <tr>

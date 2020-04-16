@@ -15,6 +15,11 @@
 	padding: 20px;
         font-family: Gotham, "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
+.tb{
+	box-shadow: 4px 4px 39px -8px #000000;
+	-webkit-box-shadow: 4px 4px 39px -8px #000000;
+	border-radius:5px;
+}
 #kysymys{
 	
 	width:100%;
@@ -26,7 +31,7 @@
 }
 h1,h2,h4{
 	text-align:center;
-	color:orange;
+	color:#f2a51a;
 	
 }
 table{
