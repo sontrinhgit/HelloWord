@@ -9,13 +9,13 @@
   </welcome-file-list>
 	
   <servlet>
-    <servlet-name>Vaalikone</servlet-name>
+    <servlet-name>Vaalikone_Son</servlet-name>
     <servlet-class>vaalikone.Vaalikone</servlet-class>
   </servlet>
   
   <servlet-mapping>
-    <servlet-name>Vaalikone</servlet-name>
-    <url-pattern>/Vaalikone</url-pattern>
+    <servlet-name>Vaalikone_Son</servlet-name>
+    <url-pattern>/Vaalikone_Son</url-pattern>
   </servlet-mapping>
 
  <servlet>
@@ -28,24 +28,6 @@
     <url-pattern>/Login</url-pattern>
   </servlet-mapping>
 
- <servlet>
-    <servlet-name>CandidateSv</servlet-name>
-    <servlet-class>vaalikone.CandidateSv</servlet-class>
-  </servlet>
-  
-  <servlet-mapping>
-    <servlet-name>CandidateSv</servlet-name>
-    <url-pattern>/CandidateSv</url-pattern>
-  </servlet-mapping>
- <servlet>
-    <servlet-name>logout</servlet-name>
-    <servlet-class>vaalikone.logout</servlet-class>
-  </servlet>
-  
-  <servlet-mapping>
-    <servlet-name>logout</servlet-name>
-    <url-pattern>/logout</url-pattern>
-  </servlet-mapping>
 
 
   <session-config>
