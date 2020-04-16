@@ -1,0 +1,109 @@
+@charset "UTF-8";
+/* CSS Document */
+
+#container{
+	width: 800px;
+	float: none;
+	border-radius: 20px;
+	background-color: #D3D3D3;
+	-webkit-box-shadow: 4px 4px 39px -8px #000000;
+	box-shadow: 4px 4px 39px -8px #000000;
+	height: auto;
+	margin-left: auto;
+	margin-right: auto;
+	background-image: url(images/concrete_seamless.png);
+	padding: 20px;
+        font-family: Gotham, "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+#kysymys{
+	
+	width:100%;
+	height:10%;
+}
+#suku{
+	width:100%;
+	height:6%;
+}
+h1,h2,h4{
+	text-align:center;
+	color:orange;
+	
+}
+table{
+	background-color:#D3D3D3;
+	width:100%;
+	height:100%;
+	text-align:center;
+}
+
+body {
+	background-image: url(images/wild_oliva.png);
+	padding: 10;
+	background-repeat: repeat;
+}
+#headerimg {
+	margin-left: auto;
+	margin-right: auto;
+	width: 500px;
+	height: 144px;
+	display: block;
+	padding-top: 10px;
+}
+
+
+#addInput{
+	float: none;
+	width: 50%;
+	height: 50px;
+	display: block;
+	font-family: Impact, Haettenschweiler, "Franklin Gothic Bold", "Arial Black", sans-serif;
+	font-style: normal;
+	font-size: large;
+}
+#kysymyscont {
+	font-family: Gotham, "Helvetica Neue", Helvetica, Arial, sans-serif;
+	margin-left: auto;
+	margin-right: auto;
+	width: 600px;
+	display: block;
+	height: 150px;
+}
+.submit{
+	margin-top:-20px;
+}
+#uname,#pass{
+	width:20%;
+	height:30px;
+	float:none;
+	display:block;
+}
+.kysymys{
+	width: 600px;
+	margin-left: auto;
+	margin-right: auto;
+        padding-top: 50px;
+	height: 100px;
+	color: #3E3E3E;
+	font-family: Impact, Haettenschweiler, "Franklin Gothic Bold", "Arial Black", sans-serif;
+	text-align: center;
+}
+#submitnappi{
+	float: none;
+	margin-left: auto;
+	margin-right: auto;
+	width: 200px;
+	height: 50px;
+	display: block;
+	margin-top: 20px;
+	font-family: Impact, Haettenschweiler, "Franklin Gothic Bold", "Arial Black", sans-serif;
+	font-style: normal;
+	font-size: large;
+}
+#vastausformi{
+	height: 100px;
+	width: 500px;
+	margin-left: auto;
+	margin-right: auto;
+	text-align: center;
+	}
+	
