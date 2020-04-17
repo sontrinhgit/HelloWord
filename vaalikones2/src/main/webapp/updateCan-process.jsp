@@ -30,7 +30,7 @@ try
 {
 Class.forName(driverName);
 con = DriverManager.getConnection(url,user,psw);
-String sql="Update ehdokkaat set ehdokas_id=?,etunimi=?,sukunimi=?,puolue=?,kotipaikkakunta=?,ika=?,ammatti=? where ehdokas_id="+id;
+String sql="Update ehdokkaat set ehdokas_id=?,etunimi=?,sukunimi=?,puolue=?,kotipaikkakunta=?,ika=?,miksi_eduskuntaan=?,mita_asioita_haluat_edistaa=?,ammatti=? where ehdokas_id="+id;
 ps = con.prepareStatement(sql);
 ps.setString(1,id);
 ps.setString(2, Etunimi);

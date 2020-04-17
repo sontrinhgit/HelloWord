@@ -33,6 +33,7 @@ ResultSet resultSet = null;
 <td ><b>Kysymys_id</b></td>
 <td ><b>Kysymys</b></td>
 <td ><b>Action</b></td>
+<td><b>Action</b></td><td>
 
 
 </tr>
@@ -50,7 +51,7 @@ while(resultSet.next()){
 <td><%=resultSet.getString("kysymys_id") %></td>
 <td><%=resultSet.getString("kysymys") %></td>
 <td><a href="edit-process.jsp?kysymys_id=<%=resultSet.getString("kysymys_id")%>">Edit</a></td>
-
+<td><a href="delete-process.jsp?kysymys_id=<%=resultSet.getString("kysymys_id")%>">Delete</a></td>
 
 </tr>
 
