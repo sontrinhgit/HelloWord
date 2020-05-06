@@ -35,7 +35,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class Kysymykset implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+//    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @NotNull
     @Column(name = "KYSYMYS_ID")
@@ -59,6 +59,11 @@ public class Kysymykset implements Serializable {
     }
     
     public Kysymykset(String kysymys) {
+    	this.kysymys = kysymys;
+    }
+    
+    public Kysymykset(Integer kysymysId, String kysymys) {
+    	this.kysymysId = kysymysId;
     	this.kysymys = kysymys;
     }
 

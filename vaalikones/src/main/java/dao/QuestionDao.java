@@ -57,11 +57,11 @@ public class QuestionDao {
 		return questionList;
 	}
 	
-	public static void updateQuestion(int id, String newQuestion) {
+	public static void updateQuestion(Kysymykset newQuestion) {
 		EntityManager em = getEntityManager();
-		Kysymykset question = em.find(Kysymykset.class, id);
+		Kysymykset question = em.find(Kysymykset.class, newQuestion.getKysymysId());
 		em.getTransaction().begin();
-		question.setKysymys(newQuestion);
+		question.setKysymys(newQuestion.getKysymys());
 		em.getTransaction().commit();
 		em.close();
 	}

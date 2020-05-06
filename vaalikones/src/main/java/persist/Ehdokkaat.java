@@ -26,256 +26,257 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Entity
 @Table(name = "EHDOKKAAT")
 @XmlRootElement
-@NamedQueries({
-    @NamedQuery(name = "Ehdokkaat.findAll", query = "SELECT e FROM Ehdokkaat e"),
-    @NamedQuery(name = "Ehdokkaat.findByEhdokasId", query = "SELECT e FROM Ehdokkaat e WHERE e.ehdokasId = :ehdokasId"),
-    @NamedQuery(name = "Ehdokkaat.findBySukunimi", query = "SELECT e FROM Ehdokkaat e WHERE e.sukunimi = :sukunimi"),
-    @NamedQuery(name = "Ehdokkaat.findByEtunimi", query = "SELECT e FROM Ehdokkaat e WHERE e.etunimi = :etunimi"),
-    @NamedQuery(name = "Ehdokkaat.findByPuolue", query = "SELECT e FROM Ehdokkaat e WHERE e.puolue = :puolue"),
-    @NamedQuery(name = "Ehdokkaat.findByKotipaikkakunta", query = "SELECT e FROM Ehdokkaat e WHERE e.kotipaikkakunta = :kotipaikkakunta"),
-    @NamedQuery(name = "Ehdokkaat.findByIk\u00e4", query = "SELECT e FROM Ehdokkaat e WHERE e.ika = :ika"),
-    @NamedQuery(name = "Ehdokkaat.findByMiksiEduskuntaan", query = "SELECT e FROM Ehdokkaat e WHERE e.miksiEduskuntaan = :miksiEduskuntaan"),
-    @NamedQuery(name = "Ehdokkaat.findByMitaAsioitaHaluatEdistaa", query = "SELECT e FROM Ehdokkaat e WHERE e.mitaAsioitaHaluatEdistaa = :mitaAsioitaHaluatEdistaa"),
-    @NamedQuery(name = "Ehdokkaat.findByAmmatti", query = "SELECT e FROM Ehdokkaat e WHERE e.ammatti = :ammatti")})
+@NamedQueries({ @NamedQuery(name = "Ehdokkaat.findAll", query = "SELECT e FROM Ehdokkaat e"),
+		@NamedQuery(name = "Ehdokkaat.findByEhdokasId", query = "SELECT e FROM Ehdokkaat e WHERE e.ehdokasId = :ehdokasId"),
+		@NamedQuery(name = "Ehdokkaat.findBySukunimi", query = "SELECT e FROM Ehdokkaat e WHERE e.sukunimi = :sukunimi"),
+		@NamedQuery(name = "Ehdokkaat.findByEtunimi", query = "SELECT e FROM Ehdokkaat e WHERE e.etunimi = :etunimi"),
+		@NamedQuery(name = "Ehdokkaat.findByPuolue", query = "SELECT e FROM Ehdokkaat e WHERE e.puolue = :puolue"),
+		@NamedQuery(name = "Ehdokkaat.findByKotipaikkakunta", query = "SELECT e FROM Ehdokkaat e WHERE e.kotipaikkakunta = :kotipaikkakunta"),
+		@NamedQuery(name = "Ehdokkaat.findByIk\u00e4", query = "SELECT e FROM Ehdokkaat e WHERE e.ika = :ika"),
+		@NamedQuery(name = "Ehdokkaat.findByMiksiEduskuntaan", query = "SELECT e FROM Ehdokkaat e WHERE e.miksiEduskuntaan = :miksiEduskuntaan"),
+		@NamedQuery(name = "Ehdokkaat.findByMitaAsioitaHaluatEdistaa", query = "SELECT e FROM Ehdokkaat e WHERE e.mitaAsioitaHaluatEdistaa = :mitaAsioitaHaluatEdistaa"),
+		@NamedQuery(name = "Ehdokkaat.findByAmmatti", query = "SELECT e FROM Ehdokkaat e WHERE e.ammatti = :ammatti") })
 public class Ehdokkaat implements Serializable {
-	
-    private static final long serialVersionUID = 1L;
-    @Id
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "EHDOKAS_ID")
-    private Integer ehdokasId;
-    @Size(max = 25)
-    @Column(name = "SUKUNIMI")
-    private String sukunimi;
-    @Size(max = 25)
-    @Column(name = "ETUNIMI")
-    private String etunimi;
-    @Size(max = 50)
-    @Column(name = "PUOLUE")
-    private String puolue;
-    @Size(max = 25)
-    @Column(name = "KOTIPAIKKAKUNTA")
-    private String kotipaikkakunta;
-    @Column(name = "IKA")
-    private Integer ika;
-    @Size(max = 250)
-    @Column(name = "MIKSI_EDUSKUNTAAN")
-    private String miksiEduskuntaan;
-    @Size(max = 2_000)
-    @Column(name = "MITA_ASIOITA_HALUAT_EDISTAA")
-    private String mitaAsioitaHaluatEdistaa;
-    @Size(max = 50)
-    @Column(name = "AMMATTI")
-    private String ammatti;
 
-    /**
-     *
-     */
-    public Ehdokkaat() {
-    }
-    
-    public Ehdokkaat(Integer ehdokasId,String sukunimi, String etunimi, String puolue, String kotipaikkakunta, Integer ika, String miksiEduskuntaan, String mitaAsioitaHaluatEdistaa, String ammatti) {
-   
-    	this.ehdokasId=ehdokasId;
-    	this.sukunimi=sukunimi;
-    	this.etunimi=etunimi;
-    	this.puolue=puolue;
-    	this.kotipaikkakunta=kotipaikkakunta;
-    	this.ika=ika;
-    	this.miksiEduskuntaan=miksiEduskuntaan;
-    	this.mitaAsioitaHaluatEdistaa=mitaAsioitaHaluatEdistaa;
-    	this.ammatti=ammatti;
-    }
-    
-    public Ehdokkaat(String sukunimi, String etunimi, String puolue, String kotipaikkakunta, Integer ika, String miksiEduskuntaan, String mitaAsioitaHaluatEdistaa, String ammatti) {
-    	   
-    
-    	this.sukunimi=sukunimi;
-    	this.etunimi=etunimi;
-    	this.puolue=puolue;
-    	this.kotipaikkakunta=kotipaikkakunta;
-    	this.ika=ika;
-    	this.miksiEduskuntaan=miksiEduskuntaan;
-    	this.mitaAsioitaHaluatEdistaa=mitaAsioitaHaluatEdistaa;
-    	this.ammatti=ammatti;
-    }
-    
+	private static final long serialVersionUID = 1L;
+	@Id
+	@Basic(optional = false)
+	@NotNull
+	@Column(name = "EHDOKAS_ID")
+	private Integer ehdokasId;
+	@Size(max = 25)
+	@Column(name = "SUKUNIMI")
+	private String sukunimi;
+	@Size(max = 25)
+	@Column(name = "ETUNIMI")
+	private String etunimi;
+	@Size(max = 50)
+	@Column(name = "PUOLUE")
+	private String puolue;
+	@Size(max = 25)
+	@Column(name = "KOTIPAIKKAKUNTA")
+	private String kotipaikkakunta;
+	@Column(name = "IKA")
+	private Integer ika;
+	@Size(max = 250)
+	@Column(name = "MIKSI_EDUSKUNTAAN")
+	private String miksiEduskuntaan;
+	@Size(max = 2_000)
+	@Column(name = "MITA_ASIOITA_HALUAT_EDISTAA")
+	private String mitaAsioitaHaluatEdistaa;
+	@Size(max = 50)
+	@Column(name = "AMMATTI")
+	private String ammatti;
 
-    /**
-     *
-     * @param ehdokasId
-     */
-    public Ehdokkaat(Integer ehdokasId) {
-        this.ehdokasId = ehdokasId;
-    }
+	/**
+	 *
+	 */
+	public Ehdokkaat() {
+	}
 
-    /**
-     *
-     * @return ehdokkaan id-numero
-     */
-    public Integer getEhdokasId() {
-        return ehdokasId;
-    }
+	/**
+	 *
+	 * @param ehdokasId
+	 */
+	public Ehdokkaat(Integer ehdokasId) {
+		this.ehdokasId = ehdokasId;
+	}
 
-    /**
-     *
-     * @param ehdokasId ehdokkaan id-numero
-     */
-    public void setEhdokasId(Integer ehdokasId) {
-        this.ehdokasId = ehdokasId;
-    }
+	// new
+	public Ehdokkaat(Integer ehdokasId, String sukunimi, String etunimi, String puolue, String kotipaikkakunta,
+			Integer ika, String miksiEduskuntaan, String mitaAsioitaHaluatEdistaa, String ammatti) {
 
-    /**
-     *
-     * @return
-     */
-    public String getSukunimi() {
-        return sukunimi;
-    }
+		this.ehdokasId = ehdokasId;
+		this.sukunimi = sukunimi;
+		this.etunimi = etunimi;
+		this.puolue = puolue;
+		this.kotipaikkakunta = kotipaikkakunta;
+		this.ika = ika;
+		this.miksiEduskuntaan = miksiEduskuntaan;
+		this.mitaAsioitaHaluatEdistaa = mitaAsioitaHaluatEdistaa;
+		this.ammatti = ammatti;
+	}
 
-    /**
-     *
-     * @param sukunimi
-     */
-    public void setSukunimi(String sukunimi) {
-        this.sukunimi = sukunimi;
-    }
+	public Ehdokkaat(String sukunimi, String etunimi, String puolue, String kotipaikkakunta, Integer ika,
+			String miksiEduskuntaan, String mitaAsioitaHaluatEdistaa, String ammatti) {
 
-    /**
-     *
-     * @return
-     */
-    public String getEtunimi() {
-        return etunimi;
-    }
+		this.sukunimi = sukunimi;
+		this.etunimi = etunimi;
+		this.puolue = puolue;
+		this.kotipaikkakunta = kotipaikkakunta;
+		this.ika = ika;
+		this.miksiEduskuntaan = miksiEduskuntaan;
+		this.mitaAsioitaHaluatEdistaa = mitaAsioitaHaluatEdistaa;
+		this.ammatti = ammatti;
+	}
 
-    /**
-     *
-     * @param etunimi
-     */
-    public void setEtunimi(String etunimi) {
-        this.etunimi = etunimi;
-    }
+	/**
+	 *
+	 * @return ehdokkaan id-numero
+	 */
+	public Integer getEhdokasId() {
+		return ehdokasId;
+	}
 
-    /**
-     *
-     * @return
-     */
-    public String getPuolue() {
-        return puolue;
-    }
+	/**
+	 *
+	 * @param ehdokasId ehdokkaan id-numero
+	 */
+	public void setEhdokasId(Integer ehdokasId) {
+		this.ehdokasId = ehdokasId;
+	}
 
-    /**
-     *
-     * @param puolue
-     */
-    public void setPuolue(String puolue) {
-        this.puolue = puolue;
-    }
+	/**
+	 *
+	 * @return
+	 */
+	public String getSukunimi() {
+		return sukunimi;
+	}
 
-    /**
-     *
-     * @return
-     */
-    public String getKotipaikkakunta() {
-        return kotipaikkakunta;
-    }
+	/**
+	 *
+	 * @param sukunimi
+	 */
+	public void setSukunimi(String sukunimi) {
+		this.sukunimi = sukunimi;
+	}
 
-    /**
-     *
-     * @param kotipaikkakunta
-     */
-    public void setKotipaikkakunta(String kotipaikkakunta) {
-        this.kotipaikkakunta = kotipaikkakunta;
-    }
+	/**
+	 *
+	 * @return
+	 */
+	public String getEtunimi() {
+		return etunimi;
+	}
 
-    /**
-     *
-     * @return
-     */
-    public Integer getIka() {
-        return ika;
-    }
+	/**
+	 *
+	 * @param etunimi
+	 */
+	public void setEtunimi(String etunimi) {
+		this.etunimi = etunimi;
+	}
 
-    /**
-     *
-     * @param ikä
-     */
-    public void setIka(Integer ika) {
-        this.ika = ika;
-    }
+	/**
+	 *
+	 * @return
+	 */
+	public String getPuolue() {
+		return puolue;
+	}
 
-    /**
-     *
-     * @return
-     */
-    public String getMiksiEduskuntaan() {
-        return miksiEduskuntaan;
-    }
+	/**
+	 *
+	 * @param puolue
+	 */
+	public void setPuolue(String puolue) {
+		this.puolue = puolue;
+	}
 
-    /**
-     *
-     * @param miksiEduskuntaan
-     */
-    public void setMiksiEduskuntaan(String miksiEduskuntaan) {
-        this.miksiEduskuntaan = miksiEduskuntaan;
-    }
+	/**
+	 *
+	 * @return
+	 */
+	public String getKotipaikkakunta() {
+		return kotipaikkakunta;
+	}
 
-    /**
-     *
-     * @return
-     */
-    public String getMitaAsioitaHaluatEdistaa() {
-        return mitaAsioitaHaluatEdistaa;
-    }
+	/**
+	 *
+	 * @param kotipaikkakunta
+	 */
+	public void setKotipaikkakunta(String kotipaikkakunta) {
+		this.kotipaikkakunta = kotipaikkakunta;
+	}
 
-    /**
-     *
-     * @param mitaAsioitaHaluatEdistaa
-     */
-    public void setMitaAsioitaHaluatEdistaa(String mitaAsioitaHaluatEdistaa) {
-        this.mitaAsioitaHaluatEdistaa = mitaAsioitaHaluatEdistaa;
-    }
+	/**
+	 *
+	 * @return
+	 */
+	public Integer getIka() {
+		return ika;
+	}
 
-    /**
-     *
-     * @return
-     */
-    public String getAmmatti() {
-        return ammatti;
-    }
+	/**
+	 *
+	 * @param ikä
+	 */
+	public void setIka(Integer ika) {
+		this.ika = ika;
+	}
 
-    /**
-     *
-     * @param ammatti
-     */
-    public void setAmmatti(String ammatti) {
-        this.ammatti = ammatti;
-    }
+	/**
+	 *
+	 * @return
+	 */
+	public String getMiksiEduskuntaan() {
+		return miksiEduskuntaan;
+	}
 
-    @Override
-    public int hashCode() {
-        int hash = 0;
-        hash += (ehdokasId != null ? ehdokasId.hashCode() : 0);
-        return hash;
-    }
+	/**
+	 *
+	 * @param miksiEduskuntaan
+	 */
+	public void setMiksiEduskuntaan(String miksiEduskuntaan) {
+		this.miksiEduskuntaan = miksiEduskuntaan;
+	}
 
-    @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Ehdokkaat)) {
-            return false;
-        }
-        Ehdokkaat other = (Ehdokkaat) object;
-        return !((this.ehdokasId == null && other.ehdokasId != null) || (this.ehdokasId != null && !this.ehdokasId.equals(other.ehdokasId)));
-    }
+	/**
+	 *
+	 * @return
+	 */
+	public String getMitaAsioitaHaluatEdistaa() {
+		return mitaAsioitaHaluatEdistaa;
+	}
 
-    @Override
-    public String toString() {
-        return "persist.Ehdokkaat[ ehdokasId=" + ehdokasId + " ]";
-    }
-   
-    private static final Logger LOG = Logger.getLogger(Ehdokkaat.class.getName());
-    
+	/**
+	 *
+	 * @param mitaAsioitaHaluatEdistaa
+	 */
+	public void setMitaAsioitaHaluatEdistaa(String mitaAsioitaHaluatEdistaa) {
+		this.mitaAsioitaHaluatEdistaa = mitaAsioitaHaluatEdistaa;
+	}
+
+	/**
+	 *
+	 * @return
+	 */
+	public String getAmmatti() {
+		return ammatti;
+	}
+
+	/**
+	 *
+	 * @param ammatti
+	 */
+	public void setAmmatti(String ammatti) {
+		this.ammatti = ammatti;
+	}
+
+	@Override
+	public int hashCode() {
+		int hash = 0;
+		hash += (ehdokasId != null ? ehdokasId.hashCode() : 0);
+		return hash;
+	}
+
+	@Override
+	public boolean equals(Object object) {
+		// TODO: Warning - this method won't work in the case the id fields are not set
+		if (!(object instanceof Ehdokkaat)) {
+			return false;
+		}
+		Ehdokkaat other = (Ehdokkaat) object;
+		return !((this.ehdokasId == null && other.ehdokasId != null)
+				|| (this.ehdokasId != null && !this.ehdokasId.equals(other.ehdokasId)));
+	}
+
+	@Override
+	public String toString() {
+		return "persist.Ehdokkaat[ ehdokasId=" + ehdokasId + " ]";
+	}
+
+	private static final Logger LOG = Logger.getLogger(Ehdokkaat.class.getName());
+
 }
