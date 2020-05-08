@@ -20,16 +20,33 @@ public class AnswerService {
 		AnswerDao.updateAnswer(newAnswer);
 	}
 
-	@Path("/addanswer")
+	//add default answers for new question
+	@Path("/addanswerfornewquestion")
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	public void addAnswerForNewQuestion(Vastaukset answer) {
 		AnswerDao.addAnswerForNewQuestion(answer);
 	}
+	
+	//add default answers for new candidate
+	@Path("/addanswerfornewcandidate")
+	@POST
+	@Consumes(MediaType.APPLICATION_JSON)
+	public void addAnswerForNewCandidate(Vastaukset answer) {
+		AnswerDao.addAnswerForNewCandidate(answer);
+	}
 
+	// delete all answers of one question
 	@Path("/deletequestionanswer/{id}")
 	@DELETE
 	public boolean deleteAnswersOfOneQuestion(@PathParam("id") int questionId) {
 		return AnswerDao.deleteAnswersOfOneQuestion(questionId);
+	}
+
+	// delete all answers of one candidate
+	@Path("/deletecandidateanswer/{id}")
+	@DELETE
+	public boolean deleteAnswerOfOneCandidate(@PathParam("id") int candidateId) {
+		return AnswerDao.deleteAnswersOfOneCandidate(candidateId);
 	}
 }

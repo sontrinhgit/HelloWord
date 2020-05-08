@@ -45,22 +45,12 @@ public class UpdateCandidate extends HttpServlet {
 		Integer id = Integer.parseInt(request.getParameter("ehdokas_id"));
 		
 		deleteCandidate(id);
+		deleteAnswerOfOneCandidate(id);
 		out.println("<script>alert('Deleted successfully')</script>");
 		out.println("<script>location.replace('rtest.jsp')</script>");
 	}
 	
-	//delete candidate part 
-	private boolean deleteCandidate(Integer id) {
-		// TODO Auto-generated method stub
-		String deleteUrl = "http://127.0.0.1:8080/rest/candidateservice/deletecandidate/"+id;
-		
-		Client c = ClientBuilder.newClient();
-		WebTarget wt = c.target(deleteUrl);
-		Builder b = wt.request();
-		
-		boolean delete = b.delete(Boolean.class);
-		return delete;
-	}
+	
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
@@ -100,6 +90,32 @@ public class UpdateCandidate extends HttpServlet {
 		   }catch(Exception ex) {
 			   ex.printStackTrace();
 		   }
+	}
+	
+	//all methods
+	//delete candidate part 
+		private boolean deleteCandidate(Integer id) {
+			// TODO Auto-generated method stub
+			String deleteUrl = "http://127.0.0.1:8080/rest/candidateservice/deletecandidate/"+id;
+			
+			Client c = ClientBuilder.newClient();
+			WebTarget wt = c.target(deleteUrl);
+			Builder b = wt.request();
+			
+			boolean delete = b.delete(Boolean.class);
+			return delete;
+		}
+		
+	//method relating vastaukset table
+	// method for deleting all answer of one candidate
+	private boolean deleteAnswerOfOneCandidate(int candidateId) {
+		String deleteURL = "http://localhost:8080/rest/answerservice/deletecandidateanswer/" + candidateId;
+		Client c = ClientBuilder.newClient();
+		WebTarget wt = c.target(deleteURL);
+		Builder b = wt.request();
+		
+		boolean delete = b.delete(Boolean.class);
+		return delete;		
 	}
 }
 

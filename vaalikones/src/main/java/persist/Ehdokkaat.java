@@ -67,6 +67,10 @@ public class Ehdokkaat implements Serializable {
 	@Size(max = 50)
 	@Column(name = "AMMATTI")
 	private String ammatti;
+	
+	@Size(max = 255)
+	@Column(name = "candidate_picture")
+	private String picture;
 
 	/**
 	 *
@@ -253,6 +257,16 @@ public class Ehdokkaat implements Serializable {
 	public void setAmmatti(String ammatti) {
 		this.ammatti = ammatti;
 	}
+	
+	
+	public String getPicture() {
+		return picture;
+	}
+
+	public void setPicture(String picture) {
+		this.picture = picture;
+	}
+
 
 	@Override
 	public int hashCode() {

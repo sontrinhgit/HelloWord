@@ -47,6 +47,5 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.web.container"/>
-	<classpathentry kind="lib" path="C:/Users/MSI/Downloads/mysql-connector-java-5.1.19-bin.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>

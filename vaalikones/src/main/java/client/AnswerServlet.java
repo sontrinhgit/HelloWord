@@ -3,6 +3,7 @@ package client;
 import java.io.IOException;
 import java.io.PrintWriter;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -51,19 +52,32 @@ public class AnswerServlet extends HttpServlet {
 		response.setContentType("text/html");
 		PrintWriter out = response.getWriter();
 
-		int newAnswer = Integer.parseInt(request.getParameter("newAns"));
-		int candidateId = Integer.parseInt(request.getParameter("candidateId"));
-		int questionId = Integer.parseInt(request.getParameter("questionId"));
+//		int updatedAnswer = Integer.parseInt(request.getParameter("vastaus"));
+//		if (updatedAnswer == 0) {
+			int newAnswer = Integer.parseInt(request.getParameter("newAns"));
+			int candidateId = Integer.parseInt(request.getParameter("candidateId"));
+			int questionId = Integer.parseInt(request.getParameter("questionId"));
 
-		Vastaukset answerObject = new Vastaukset(candidateId, questionId);
-		answerObject.setVastaus(newAnswer);
-		updateAnswer(answerObject);
+			Vastaukset answerObject = new Vastaukset(candidateId, questionId);
+			answerObject.setVastaus(newAnswer);
+			updateAnswer(answerObject);
 
-		out.print("<script>alert('Answer is updated successfully!')</script>");
-		out.print("<script>location.replace('candidateTable.jsp')</script>");
-	}
+			out.print("<script>alert('Answer is updated successfully!')</script>");
+			out.print("<script>location.replace('candidateTable.jsp')</script>");
+		} 
+//		else {
+//			int questionId = Integer.parseInt(request.getParameter("q"));
+//			int candidateId = Integer.parseInt(request.getParameter("candidateId"));
+//			Vastaukset answer = new Vastaukset(candidateId, questionId);
+//			answer.setVastaus(updatedAnswer);
+//			answer.setKommentti("ehdokkaan vastaus kysymykseen");
+//			updateAnswer(answer);
+//			RequestDispatcher rqd = request.getRequestDispatcher("updateAnswer.jsp");
+//			rqd.include(request, response);
+//		}
+//	}
 
-	//method for updating answer
+	// method for updating answer
 	private void updateAnswer(Vastaukset newAnswer) {
 		String url = "http://localhost:8080/rest/answerservice/updateanswer/";
 
@@ -74,5 +88,18 @@ public class AnswerServlet extends HttpServlet {
 		Entity<Vastaukset> e = Entity.entity(newAnswer, MediaType.APPLICATION_JSON);
 		b.post(e);
 	}
+
+	// method for adding answers for new candidate
+	private void addAnswerForNewCandidate(Vastaukset answer) {
+		String addURL = "http://localhost:8080/rest/answerservice/updateanswer";
+		Client c = ClientBuilder.newClient();
+		WebTarget wt = c.target(addURL);
+		Builder b = wt.request();
+
+		Entity<Vastaukset> e = Entity.entity(answer, MediaType.APPLICATION_JSON);
+		b.post(e);
+	}
+	
+	
 
 }

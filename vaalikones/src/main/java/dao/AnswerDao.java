@@ -38,18 +38,27 @@ public class AnswerDao {
 		}
 	}
 
+	public static List<Vastaukset> getAllAnswerOfOneCandidate(int candidateId) {
+		EntityManager em = getEntityManager();
+		String q = "SELECT v FROM Vastaukset v WHERE v.vastauksetPK.ehdokasId=" + candidateId;
+		List<Vastaukset> answerList = em.createQuery(q).getResultList();
+		em.close();
+		return answerList;
+	}
+
 	// when adding new question, the default answers of this question for all
 	// candidates should be added too
 	public static void addAnswerForNewQuestion(Vastaukset answer) {
-//		EntityManager em = getEntityManager();
-//		for (int i = 1; i <= candidateList.size(); i++) {
-//			Vastaukset answer = new Vastaukset(i, questionId);
-//			em.getTransaction().begin();
-//			em.persist(answer);
-//			em.getTransaction().commit();
-//		}
-//		em.close();
-		
+		EntityManager em = getEntityManager();
+		em.getTransaction().begin();
+		em.persist(answer);
+		em.getTransaction().commit();
+		em.close();
+	}
+
+	// when adding new candidate, the default answers for that candidate should be
+	// added too
+	public static void addAnswerForNewCandidate(Vastaukset answer) {
 		EntityManager em = getEntityManager();
 		em.getTransaction().begin();
 		em.persist(answer);
@@ -86,11 +95,4 @@ public class AnswerDao {
 		return true;
 	}
 
-	public static List<Vastaukset> getAllAnswerOfOneCandidate(int candidateId) {
-		EntityManager em = getEntityManager();
-		String q = "SELECT v FROM Vastaukset v WHERE v.vastauksetPK.ehdokasId=" + candidateId;
-		List<Vastaukset> answerList = em.createQuery(q).getResultList();
-		em.close();
-		return answerList;
-	}
 }

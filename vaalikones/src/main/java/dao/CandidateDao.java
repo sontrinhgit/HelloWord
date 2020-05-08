@@ -32,7 +32,7 @@ public class CandidateDao {
 		return candidate;
 	}
 
-	//new 
+	// new
 	public static void addCandidate(Ehdokkaat candidate) {
 		EntityManager em = getEntityManager();
 		em.getTransaction().begin();
@@ -70,4 +70,16 @@ public class CandidateDao {
 		}
 		return false;
 	}
+
+	// add image into ehdokkaat table
+	public static void addCandidateImage(Ehdokkaat candidate) {
+		EntityManager em = getEntityManager();
+		Ehdokkaat e = em.find(Ehdokkaat.class, candidate.getEhdokasId());
+		em.getTransaction().begin();
+		e.setPicture(candidate.getPicture());
+		em.getTransaction().commit();
+		em.close();		
+	}
+	
+	
 }

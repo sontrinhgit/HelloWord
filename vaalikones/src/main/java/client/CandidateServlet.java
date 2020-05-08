@@ -11,9 +11,16 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.ws.rs.client.Client;
+import javax.ws.rs.client.ClientBuilder;
+import javax.ws.rs.client.Entity;
+import javax.ws.rs.client.Invocation.Builder;
+import javax.ws.rs.client.WebTarget;
+import javax.ws.rs.core.MediaType;
 
 import dao.CandidateDao;
 import persist.Ehdokkaat;
+import rest.UploadService;
 
 /**
  * Servlet implementation class CandidateServlet
@@ -36,24 +43,33 @@ public class CandidateServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		HttpSession session = request.getSession();		
-		
+		HttpSession session = request.getSession();
+
 		response.setContentType("text/html");
 		PrintWriter out = response.getWriter();
 
 		String fname = request.getParameter("firstname");
 		String lname = request.getParameter("lastname");
-
 		List<Ehdokkaat> candidateList = CandidateDao.getAllCandidates();
+
+		int n = 0;
 		for (int i = 1; i <= candidateList.size(); i++) {
 			Ehdokkaat candidate = CandidateDao.getOneCandidate(i);
-			
-			if(candidate.getEtunimi().equals(fname) && candidate.getSukunimi().equals(lname)) {
+
+			if (candidate.getEtunimi().equals(fname) && candidate.getSukunimi().equals(lname)) {
 				session.setAttribute("candidateId", candidate.getEhdokasId());
-				
+
 				RequestDispatcher rqd = request.getRequestDispatcher("candidateTable.jsp");
 				rqd.include(request, response);
+			} else {
+				n++;
 			}
+		}
+
+		// if all the information in for-loop is wrong
+		if (n == candidateList.size()) {
+			response.getWriter().print("<script>alert('Wrong Information!')</script>");
+			response.getWriter().print("<script>location.replace('candidate.html')</script>");
 		}
 	}
 
@@ -63,8 +79,9 @@ public class CandidateServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
+		
 	}
+
+
 
 }

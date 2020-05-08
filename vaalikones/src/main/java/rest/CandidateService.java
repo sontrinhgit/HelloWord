@@ -51,5 +51,12 @@ public class CandidateService {
 	public boolean deleteCandidate(@PathParam("id") int id) {
 		return CandidateDao.deleteCandidate(id);
 	}
+	
+	@Path("/addimage")
+	@POST
+	@Consumes(MediaType.APPLICATION_JSON)
+	public void addImageDir(Ehdokkaat candidate) {
+		CandidateDao.addCandidateImage(candidate);
+	}
 
 }

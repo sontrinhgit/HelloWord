@@ -140,9 +140,9 @@ public class QuestionServlet extends HttpServlet {
 		return delete;
 	}
 
-	// method for adding answers for new question
+	// method for adding default answers for new question
 	private void addAnswerForNewQuestion(Vastaukset answer) {
-		String addURL = "http://localhost:8080/rest/answerservice/addanswer";
+		String addURL = "http://localhost:8080/rest/answerservice/addanswerfornewquestion";
 		Client c = ClientBuilder.newClient();
 		WebTarget wt = c.target(addURL);
 		Builder b = wt.request();
